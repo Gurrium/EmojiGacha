@@ -6,40 +6,82 @@
 //
 
 import SwiftUI
+import AppKit
 
 struct ContentView: View {
+    @ObservedObject var viewModel: ViewModel
+
     var body: some View {
         VStack {
             VStack {
-                Text("😀")
+                let firstEmoji = viewModel.histories.first?.value
+                Text(firstEmoji?.image ?? "")
                     .font(.system(size: 70))
-                Text("grinning_face")
-                    .font(.body)
+                Text(firstEmoji?.description ?? "")
+                    .font(.caption)
+                Button {
+                    viewModel.gacha()
+                } label: {
+                    Text("gacha")
+                }
             }
-            .padding([.top, .bottom], /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+            .padding([.top, .bottom], 10)
             ScrollView {
                 LazyVGrid(
                     columns: [GridItem(.adaptive(minimum: 150))],
+                    alignment: .leading,
                     spacing: 12)
                 {
-                    ForEach((0...79), id: \.self) { _ in
-                        //                let emoji = String(Character(UnicodeScalar(codepoint)!))
+                    ForEach(viewModel.histories, id: \.id) { emoji in
                         HStack {
-                            Text("\(String(UnicodeScalar(128_512) ?? "a".unicodeScalars.first!))")
+                            Text(emoji.value.image)
                                 .font(.title)
-                            Text("grinning_face")
+                            Text(emoji.value.description)
                                 .font(.caption)
                         }
+                        .frame(alignment: .leading)
                         .padding([.leading, .trailing], 4)
                     }
                 }
             }
+            .padding([.leading, .trailing])
         }
+    }
+}
+
+class ViewModel: ObservableObject {
+    struct IdentifiableEmoji: Identifiable {
+        let id: UUID
+        let value: Emoji
+
+        init(id: UUID = UUID(), value: Emoji) {
+            self.id = id
+            self.value = value
+        }
+    }
+
+    @Published var histories: [IdentifiableEmoji] = []
+
+    init() {
+        gacha()
+    }
+
+    func gacha() {
+        histories.insert(.init(value: Emoji.random()), at: histories.startIndex)
+        copyToClipboard()
+    }
+
+    func copyToClipboard() {
+        guard let emoji = histories.first?.value.image else { return }
+
+        let pboard = NSPasteboard.general
+        pboard.clearContents()
+        pboard.setString(emoji, forType: .string)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: ViewModel())
     }
 }

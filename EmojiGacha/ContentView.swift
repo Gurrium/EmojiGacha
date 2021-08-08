@@ -49,6 +49,12 @@ struct ContentView: View {
                 }
             }
             .padding([.leading, .trailing])
+            if let emoji = viewModel.mostRecentlyCopiedEmoji?.image {
+                Text("\(emoji) is copied")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 15))
+                    .padding(.bottom, 4)
+            }
         }
     }
 }
@@ -65,6 +71,7 @@ class ViewModel: ObservableObject {
     }
 
     @Published var histories: [IdentifiableEmoji] = []
+    @Published var mostRecentlyCopiedEmoji: Emoji?
 
     init() {
         gacha()
@@ -79,7 +86,9 @@ class ViewModel: ObservableObject {
     func copyEmojiToClipboard(_ emoji: Emoji) {
         let pboard = NSPasteboard.general
         pboard.clearContents()
-        pboard.setString(emoji.image, forType: .string)
+        if pboard.setString(emoji.image, forType: .string) {
+            mostRecentlyCopiedEmoji = emoji
+        }
     }
 }
 

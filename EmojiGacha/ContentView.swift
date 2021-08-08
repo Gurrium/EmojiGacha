@@ -18,7 +18,7 @@ struct ContentView: View {
                 Text(firstEmoji?.image ?? "")
                     .font(.system(size: 70))
                 Text(firstEmoji?.description ?? "")
-                    .font(.caption)
+                    .font(.system(size: 15))
                 Button {
                     viewModel.gacha()
                 } label: {
@@ -35,9 +35,13 @@ struct ContentView: View {
                     ForEach(viewModel.histories, id: \.id) { emoji in
                         HStack {
                             Text(emoji.value.image)
-                                .font(.title)
+                                .font(.system(size: 40))
                             Text(emoji.value.description)
-                                .font(.caption)
+                                .font(.system(size: 15))
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            viewModel.copyEmojiToClipboard(emoji.value)
                         }
                         .frame(alignment: .leading)
                         .padding([.leading, .trailing], 4)
@@ -67,16 +71,15 @@ class ViewModel: ObservableObject {
     }
 
     func gacha() {
-        histories.insert(.init(value: Emoji.random()), at: histories.startIndex)
-        copyToClipboard()
+        let result = Emoji.random()
+        histories.insert(.init(value: result), at: histories.startIndex)
+        copyEmojiToClipboard(result)
     }
 
-    func copyToClipboard() {
-        guard let emoji = histories.first?.value.image else { return }
-
+    func copyEmojiToClipboard(_ emoji: Emoji) {
         let pboard = NSPasteboard.general
         pboard.clearContents()
-        pboard.setString(emoji, forType: .string)
+        pboard.setString(emoji.image, forType: .string)
     }
 }
 

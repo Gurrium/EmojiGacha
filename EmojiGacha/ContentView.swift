@@ -24,6 +24,7 @@ struct ContentView: View {
                 } label: {
                     Text("gacha")
                 }
+                .keyboardShortcut(.init(.space, modifiers: []))
             }
             .padding([.top, .bottom], 10)
             ScrollView {

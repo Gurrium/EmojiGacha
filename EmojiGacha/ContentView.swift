@@ -9,6 +9,7 @@ import SwiftUI
 import AppKit
 
 struct ContentView: View {
+    static let minWidth: CGFloat = 320
     @ObservedObject var viewModel: ViewModel
 
     var body: some View {
@@ -28,7 +29,7 @@ struct ContentView: View {
             .padding([.top, .bottom], 10)
             ScrollView {
                 LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 320))],
+                    columns: [GridItem(.adaptive(minimum: Self.minWidth))],
                     alignment: .leading,
                     spacing: 12)
                 {
@@ -56,6 +57,7 @@ struct ContentView: View {
                     .padding(.bottom, 4)
             }
         }
+        .frame(minWidth: Self.minWidth)
     }
 }
 

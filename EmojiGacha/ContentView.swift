@@ -28,7 +28,7 @@ struct ContentView: View {
             .padding([.top, .bottom], 10)
             ScrollView {
                 LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 150))],
+                    columns: [GridItem(.adaptive(minimum: 320))],
                     alignment: .leading,
                     spacing: 12)
                 {

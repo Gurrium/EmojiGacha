@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+curl https://unicode.org/emoji/charts/emoji-list.html -o html/emoji-list.html
+curl https://unicode.org/emoji/charts/full-emoji-modifiers.html -o html/full-emoji-modifiers.html
+ruby generator.rb
+

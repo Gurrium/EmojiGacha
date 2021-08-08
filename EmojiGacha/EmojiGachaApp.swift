@@ -9,9 +9,21 @@ import SwiftUI
 
 @main
 struct EmojiGachaApp: App {
+    let viewModel = ViewModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: ViewModel())
+            ContentView(viewModel: viewModel)
+        }
+        .commands {
+            CommandGroup(after: .textEditing) {
+                Button {
+                    viewModel.gacha()
+                } label: {
+                    Text("Gacha")
+                }
+                .keyboardShortcut(.init(.space, modifiers: []))
+            }
         }
     }
 }

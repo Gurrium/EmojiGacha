@@ -22,7 +22,7 @@ struct EmojiGachaApp: App {
                 } label: {
                     Text("Gacha")
                 }
-                .keyboardShortcut(.init(.space, modifiers: []))
+                .keyboardShortcut(.space, modifiers: [])
             }
         }
     }

@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import AppKit
 
 @main
 struct EmojiGachaApp: App {
-    let viewModel = ViewModel()
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+    let viewModel = ViewState()
 
     var body: some Scene {
         WindowGroup {

@@ -10,7 +10,7 @@ import AppKit
 
 struct ContentView: View {
     static let minWidth: CGFloat = 320
-    @ObservedObject var viewModel: ViewModel
+    @ObservedObject var viewModel: ViewState
 
     var body: some View {
         VStack {
@@ -61,7 +61,7 @@ struct ContentView: View {
     }
 }
 
-class ViewModel: ObservableObject {
+class ViewState: ObservableObject {
     struct IdentifiableEmoji: Identifiable {
         let id: UUID
         let value: Emoji
@@ -96,6 +96,6 @@ class ViewModel: ObservableObject {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: ViewModel())
+        ContentView(viewModel: ViewState())
     }
 }

@@ -15,51 +15,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-//        RegisterEventHotKey(keyCode, .zero, hotKeyId, targetRef, .zero, nil)
-//
-//        _ = withUnsafePointer(to: EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyReleased))) { eventTypeSpec in
-//            InstallEventHandler(
-//                targetRef,
-//                { (_:EventHandlerCallRef?, _ event: EventRef?, _:UnsafeMutableRawPointer?) -> OSStatus in
-//                    print("hot key pressed !!!!!!!!!")
-//
-//                    return noErr
-//                },
-//                1,
-//                eventTypeSpec,
-//                nil,
-//                nil
-//            )
-//        }
-
-//        let targetRef = GetEventDispatcherTarget()
-//        let keyCode = UInt32(kVK_ANSI_E)
-//        let modifierKeys = UInt32(kVK_Command | kVK_Shift)
-//        let hotKeyId = EventHotKeyID(signature: 1, id: 1)
-//        let status = RegisterEventHotKey(keyCode, modifierKeys, hotKeyId, targetRef, .zero, nil)
-//        print(status)
-//
-//        let eventType = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyReleased))
-//        _ = withUnsafePointer(to: eventType) { eventTypePointer in
-//            InstallEventHandler(
-//                targetRef,
-//                {(nextHanlder, theEvent, userData) -> OSStatus in
-//                    print("hot key pressed !!!!!!!!!")
-//
-//                    return noErr
-//                },
-//                1,
-//                eventTypePointer,
-//                nil,
-//                nil)
-//        }
-
-//        NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { event in
-//            if event.keyCode == kVK_ANSI_E && event.modifierFlags == .command {
-//                print("global hot key")
-//            }
-//        }
-
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         guard let image = NSImage.init(systemSymbolName: "face.smiling", accessibilityDescription: nil) else { return }

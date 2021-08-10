@@ -20,10 +20,8 @@ struct EmojiGachaApp: App {
         }
         .commands {
             CommandGroup(after: .textEditing) {
-                Button {
+                Button("Gacha") {
                     viewModel.gacha()
-                } label: {
-                    Text("Gacha")
                 }
                 .keyboardShortcut(.space, modifiers: [])
             }

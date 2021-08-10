@@ -20,10 +20,8 @@ struct ContentView: View {
                     .font(.system(size: 70))
                 Text(firstEmoji?.description ?? "")
                     .font(.system(size: 15))
-                Button {
+                Button("gacha") {
                     viewModel.gacha()
-                } label: {
-                    Text("gacha")
                 }
             }
             .padding([.top, .bottom], 10)

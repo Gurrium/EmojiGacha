@@ -54,10 +54,8 @@ struct MenuView: View {
             Text(emoji.description)
                 .font(.system(size: 15))
                 .padding([.leading, .trailing])
-            Button {
+            Button("gacha") {
                 gacha()
-            } label: {
-                Text("gacha")
             }
         }
     }

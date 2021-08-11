@@ -6,37 +6,35 @@
 //
 
 import AppKit
-import Carbon
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    let hotKeyId = EventHotKeyID(signature: 1, id: 1)
-    var menu: NSMenu?
-    var statusItem: NSStatusItem?
+    var statusItem: NSStatusItem!
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
-        guard let image = NSImage.init(systemSymbolName: "face.smiling", accessibilityDescription: nil) else { return }
+        let image = NSImage(systemSymbolName: "face.smiling", accessibilityDescription: "EmojiGacha's status menu")!
         image.isTemplate = true
-        statusItem?.button?.image = image
+        statusItem.button?.image = image
 
-        let menu: NSMenu = {
+        statusItem.menu = {
             let menu = NSMenu()
 
             let customView = MenuView()
             let hostingView = NSHostingView(rootView: customView)
             hostingView.setFrameSize(.init(width: 320, height: 100))
-            let customViewMenuItem = NSMenuItem.init()
+            let customViewMenuItem = NSMenuItem()
             customViewMenuItem.view = hostingView
             menu.addItem(customViewMenuItem)
 
-            let quitMenuItem = NSMenuItem.init(title: "Quit EmojiGacha", action: #selector(quit), keyEquivalent: "q")
+            menu.addItem(.separator())
+
+            let quitMenuItem = NSMenuItem(title: "Quit EmojiGacha", action: #selector(quit), keyEquivalent: "q")
             menu.addItem(quitMenuItem)
 
             return menu
         }()
-        statusItem?.menu = menu
     }
 
     @objc private func quit() {

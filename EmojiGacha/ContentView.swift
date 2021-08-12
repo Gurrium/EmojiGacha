@@ -14,17 +14,18 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            VStack {
-                let firstEmoji = viewModel.histories.first?.value
-                Text(firstEmoji?.image ?? "")
-                    .font(.system(size: 70))
-                Text(firstEmoji?.description ?? "")
-                    .font(.system(size: 15))
-                Button("gacha") {
-                    viewModel.gacha()
+            if let firstEmoji = viewModel.histories.first?.value {
+                VStack {
+                    Text(firstEmoji.image)
+                        .font(.system(size: 70))
+                    Text(firstEmoji.description)
+                        .font(.system(size: 15))
+                    Button("gacha") {
+                        viewModel.gacha()
+                    }
                 }
+                .padding([.top, .bottom], 10)
             }
-            .padding([.top, .bottom], 10)
             ScrollView {
                 LazyVGrid(
                     columns: [GridItem(.adaptive(minimum: Self.minWidth))],
